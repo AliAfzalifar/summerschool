@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "pngwriter.h"
 
-#define NX 8
-#define NY 8
+#define NX 5
+#define NY 5
 
 int main(void)
 {
@@ -35,13 +36,14 @@ int main(void)
       }
     }
 
-    for (j=0; j<NY ; j++) {
-      for (i=0; i<NX ; i++) {
+    for (i=0; i<NX ; i++) {
+      for (j=0; j<NY ; j++) {
 	printf("\t  %f \t ", array[i][j]);
       }
       printf(" \n");
     }
 
+    
     // Initial conditions for left and right
     //#error add boundary conditions for left and right
 
