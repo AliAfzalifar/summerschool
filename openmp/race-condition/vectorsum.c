@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <omp.h>
 
-#define NX 102400
+#define NX 5678
 
 int main(void)
 {
@@ -19,10 +20,15 @@ int main(void)
 
     sum = 0.0;
     /* TODO: Parallelize computation */
-    for (i = 0; i < NX; i++) {
+#pragma omp parallel shared(vecA)  private(i) reduction(+:sum)
+    {
+      printf("thred num: %d\n", omp_get_thread_num());
+#pragma omp for      
+      for (i = 0; i < NX; i++) {
         sum += vecA[i];
+      }
     }
-    printf("Sum: %ld\n", sum);
-
+    printf("Sum_par: %ld\n", sum);
+    printf("Sum_ref: %ld\n", (long) NX*(NX+1)/2);
     return 0;
 }
